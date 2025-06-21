@@ -1,5 +1,3 @@
-db = db.getSiblingDB("Photos");
-
 db.createCollection("Images");
 
 db.Images.insertOne({

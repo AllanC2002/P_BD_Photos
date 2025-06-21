@@ -110,8 +110,8 @@ jobs:
             username: ubuntu
             key: ${{ secrets.EC2_PEM }}
             script: |
-              docker stop project_create_user || true
-              docker rm project_create_user || true
+              docker stop db_photos || true
+              docker rm db_photos || true
               docker rmi ${{ secrets.DOCKER_REPO }}:qa || true
 
               docker pull ${{ secrets.DOCKER_REPO }}:qa
@@ -119,6 +119,7 @@ jobs:
               docker run -d \
               --name db_photos \
               -p 27017:27017 \
+              --restart unless-stopped \
               -e MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_USER }} \
               -e MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_PASSWORD }} \
               -e MONGO_INITDB_DATABASE=${{ secrets.MONGO_DB }} \
